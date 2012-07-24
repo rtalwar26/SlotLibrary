@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'WLSlotLibrary' target in the 'WLSlotLibrary' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
