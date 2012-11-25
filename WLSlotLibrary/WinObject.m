@@ -77,9 +77,10 @@ extern const char *symbolAnimarray[];
 -(BOOL)checkForReel:(NSInteger)pReel andSymbol:(NSMutableArray*)pSlotReel
 {
     NSInteger rowNum = [[mPattern objectAtIndex:pReel] integerValue];
-   mWildMult = mScatterDetected= false;
     
     if(pReel == 0){
+        mWildMult = mScatterDetected= false;
+
         mWinSymbol = -1;
         mThisWin=0;
         [mThisPlayState replaceObjectAtIndex:pReel withObject:[pSlotReel objectAtIndex:rowNum]];
