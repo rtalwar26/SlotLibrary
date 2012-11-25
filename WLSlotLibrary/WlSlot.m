@@ -5,29 +5,6 @@
 //  Created by rajat talwar on 10/12/11.
 //  Copyright (c) 2011 rajat. All rights reserved.
 //
-/*Disclaimer: IMPORTANT:  This  software is supplied to you by Delvelogic Pvt Ltd
-in consideration of your agreement to the following
-terms, and your use, installation, modification or redistribution of
-this Delvelogic Pvt LTd software constitutes acceptance of these terms.  If you do
-not agree with these terms, please do not use, install, modify or
-redistribute this Delvelogic Pvt Ltd software.
- 
- In consideration of your agreement to abide by the following terms, and
- subject to these terms, Delvelogic grants you a personal, non-exclusive
- license, under Delvelogic's copyrights in this original Delvelogic software (the
- "Delvelogic Software"), to use, reproduce, modify and redistribute the Delvelogic
- Software, with or without modifications, in source and/or binary forms;
- provided that if you redistribute the Delvelogic Software in its entirety and
- without modifications, you must retain this notice and the following
- text and disclaimers in all such redistributions of the Delvelogic Software.
- Neither the name, trademarks, service marks or logos of Delvelogic Pvt ltd. may
- be used to endorse or promote products derived from the Delvelogic Software
- without specific prior written permission from Delvelogic.  Except as
- expressly stated in this notice, no other rights or licenses, express or
- implied, are granted by Delvelogic herein, including but not limited to any
- patent rights that may be infringed by your derivative works or by other
- works in which the Delvelogic Software may be incorporated.
- */
 
 extern  int winArray[50][5];
 
@@ -52,7 +29,7 @@ extern  int winArray[50][5];
 
     NSMutableArray *tempArray = [NSMutableArray new];
     self.mWinArray = [tempArray autorelease];
-    
+    NSInteger scatMult=1,wildMult=1;
     BOOL scatterActsAsWild = FALSE;
     
     if ([(id)mDelegate respondsToSelector:@selector(isScatterIsWild:)]) {
@@ -60,12 +37,23 @@ extern  int winArray[50][5];
         scatterActsAsWild = [self.mDelegate isScatterIsWild:self];
     }
     
+    if([(id)mDelegate respondsToSelector:@selector(scatterMultiplier:)])
+        scatMult = [self.mDelegate scatterMultiplier:self];
+
+    if([(id)mDelegate respondsToSelector:@selector(wildMultiplier:)])
+        wildMult = [self.mDelegate wildMultiplier:self];
+    
+    
+    
     for (int i = 0 ; i < 50; i++) {
         
         if(winArray[i][0]==-1)
             break;
         
         WinObject *winObj = [[WinObject alloc] initWithPattern:[NSArray arrayWithObjects:_WLNSINT(winArray[i][0]),_WLNSINT(winArray[i][1]),_WLNSINT(winArray[i][2]),_WLNSINT(winArray[i][3]),_WLNSINT(winArray[i][4]),nil] andLineNumber:(i+1) andScatterActsAsWild:scatterActsAsWild];
+        
+        winObj.mScatterMult = scatMult;
+        winObj.mWildMult = wildMult;
         
         winObj.mWild = mWild;
         winObj.mScatter = mScatter;
