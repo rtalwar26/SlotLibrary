@@ -79,7 +79,7 @@ extern const char *symbolAnimarray[];
     NSInteger rowNum = [[mPattern objectAtIndex:pReel] integerValue];
     
     if(pReel == 0){
-        mWildMult = mScatterDetected= false;
+        mWildMult = mScatterDetected= false;//changes made
 
         mWinSymbol = -1;
         mThisWin=0;
